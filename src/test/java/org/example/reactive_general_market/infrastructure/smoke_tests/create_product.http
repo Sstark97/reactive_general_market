@@ -1,0 +1,11 @@
+### GET request to example server
+POST http://localhost:8080/products/create
+Content-Type: application/json
+
+{
+    "name": "Product 1",
+    "description": "Product 1 description",
+    "price": 100.00
+}
+
+###

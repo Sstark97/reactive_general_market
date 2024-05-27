@@ -10,6 +10,8 @@ public class ReactivePostgresContainer {
   @Bean
   @ServiceConnection
   public PostgreSQLContainer postgreSQLContainer() {
-    return new PostgreSQLContainer<>("postgres:13.2");
+    return new PostgreSQLContainer<>("postgres:13.2")
+        .withDatabaseName("reactive_general_market")
+        .withInitScript("init.sql");
   }
 }
