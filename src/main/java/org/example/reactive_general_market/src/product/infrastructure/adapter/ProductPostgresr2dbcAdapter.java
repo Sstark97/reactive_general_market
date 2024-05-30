@@ -3,7 +3,9 @@ package org.example.reactive_general_market.src.product.infrastructure.adapter;
 import org.example.reactive_general_market.src.product.domain.ProductRepository;
 import org.example.reactive_general_market.src.product.domain.model.Product;
 import org.example.reactive_general_market.src.product.infrastructure.repository.ProductR2dbcRepository;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 @Component
@@ -17,5 +19,10 @@ public class ProductPostgresr2dbcAdapter implements ProductRepository {
   @Override
   public Mono<Product> save(Product product) {
     return productR2dbcRepository.save(product);
+  }
+
+  @Override
+  public Flux<Product> findAll(Pageable pageable) {
+    return productR2dbcRepository.findAll(pageable.getOffset(), pageable.getPageSize());
   }
 }
