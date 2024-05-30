@@ -3,6 +3,7 @@ package org.example.reactive_general_market.src.product.infrastructure.handler;
 import org.example.reactive_general_market.src.product.application.CreateProduct;
 import org.example.reactive_general_market.src.product.application.FindPaginatedProducts;
 import org.example.reactive_general_market.src.product.infrastructure.dto.CreatedProductDto;
+import org.example.reactive_general_market.src.product.infrastructure.dto.ErrorResponse;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.server.ServerRequest;
@@ -23,7 +24,7 @@ public class ProductHandler {
     return request.bodyToMono(CreatedProductDto.class)
       .flatMap(createProduct::execute)
       .flatMap(createdProduct -> ServerResponse.ok().bodyValue(createdProduct))
-        .onErrorResume(error -> ServerResponse.badRequest().bodyValue(error.getMessage()));
+        .onErrorResume(error -> ServerResponse.badRequest().bodyValue(new ErrorResponse(error.getMessage())));
   }
 
   public Mono<ServerResponse> findAllProductsPaginated(ServerRequest request) {

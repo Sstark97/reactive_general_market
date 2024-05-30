@@ -1,4 +1,4 @@
-package org.example.reactive_general_market.infrastructure.containers;
+package org.example.reactive_general_market.src.product.infrastructure.containers;
 
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.boot.testcontainers.service.connection.ServiceConnection;

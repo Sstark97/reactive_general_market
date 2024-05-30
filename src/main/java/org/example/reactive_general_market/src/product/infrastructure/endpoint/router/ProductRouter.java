@@ -17,7 +17,7 @@ public class ProductRouter {
   }
 
   @Bean
-  RouterFunction<ServerResponse> productRoutes() {
+  public RouterFunction<ServerResponse> productRoutes() {
     return RouterFunctions.route(RequestPredicates.POST("products/create"), productHandler::createProduct)
         .andRoute(RequestPredicates.GET("products/all"), productHandler::findAllProductsPaginated);
   }

@@ -1,6 +1,6 @@
 package org.example.reactive_general_market;
 
-import org.example.reactive_general_market.infrastructure.containers.ReactivePostgresContainer;
+import org.example.reactive_general_market.src.product.infrastructure.containers.ReactivePostgresContainer;
 import org.springframework.boot.SpringApplication;
 
 public class LocalReactiveGeneralMarketApplication {
