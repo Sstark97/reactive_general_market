@@ -1,8 +1,8 @@
 package org.example.reactive_general_market.src.product.application;
 
+import org.example.reactive_general_market.src.product.application.dto.CreatedProductDto;
 import org.example.reactive_general_market.src.product.domain.ProductRepository;
 import org.example.reactive_general_market.src.product.domain.model.Product;
-import org.example.reactive_general_market.src.product.infrastructure.dto.CreatedProductDto;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
 

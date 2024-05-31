@@ -1,4 +1,4 @@
-package org.example.reactive_general_market.src.product.application.model;
+package org.example.reactive_general_market.src.product.application.dto;
 
 import java.util.List;
 

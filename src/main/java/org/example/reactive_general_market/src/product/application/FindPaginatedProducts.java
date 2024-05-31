@@ -1,6 +1,6 @@
 package org.example.reactive_general_market.src.product.application;
 
-import org.example.reactive_general_market.src.product.application.model.ProductsResultDto;
+import org.example.reactive_general_market.src.product.application.dto.ProductsResultDto;
 import org.example.reactive_general_market.src.product.domain.ProductRepository;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;

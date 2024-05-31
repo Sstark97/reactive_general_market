@@ -1,7 +1,7 @@
 package org.example.reactive_general_market.src.product.infrastructure.e2e;
 
+import org.example.reactive_general_market.src.product.application.dto.CreatedProductDto;
 import org.example.reactive_general_market.src.product.infrastructure.containers.ReactivePostgresContainer;
-import org.example.reactive_general_market.src.product.infrastructure.dto.CreatedProductDto;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.reactive.AutoConfigureWebTestClient;

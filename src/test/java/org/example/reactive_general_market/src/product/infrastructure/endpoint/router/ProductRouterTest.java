@@ -5,9 +5,9 @@ import java.util.UUID;
 
 import org.example.reactive_general_market.src.product.application.CreateProduct;
 import org.example.reactive_general_market.src.product.application.FindPaginatedProducts;
-import org.example.reactive_general_market.src.product.application.model.ProductsResultDto;
+import org.example.reactive_general_market.src.product.application.dto.CreatedProductDto;
+import org.example.reactive_general_market.src.product.application.dto.ProductsResultDto;
 import org.example.reactive_general_market.src.product.domain.model.Product;
-import org.example.reactive_general_market.src.product.infrastructure.dto.CreatedProductDto;
 import org.example.reactive_general_market.src.product.infrastructure.handler.ProductHandler;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

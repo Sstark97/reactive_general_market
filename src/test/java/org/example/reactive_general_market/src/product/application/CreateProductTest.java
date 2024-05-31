@@ -1,8 +1,8 @@
 package org.example.reactive_general_market.src.product.application;
 
+import org.example.reactive_general_market.src.product.application.dto.CreatedProductDto;
 import org.example.reactive_general_market.src.product.domain.ProductRepository;
 import org.example.reactive_general_market.src.product.domain.model.Product;
-import org.example.reactive_general_market.src.product.infrastructure.dto.CreatedProductDto;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -11,7 +11,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import reactor.core.publisher.Mono;
 import reactor.test.StepVerifier;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
