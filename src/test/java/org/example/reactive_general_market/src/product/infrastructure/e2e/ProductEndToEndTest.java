@@ -26,7 +26,7 @@ class ProductEndToEndTest {
     );
 
     webTestClient.post()
-        .uri("/products/create")
+        .uri("/general_market/api/v1/products/create")
         .contentType(MediaType.APPLICATION_JSON)
         .bodyValue(productDto)
         .exchange()
@@ -46,7 +46,7 @@ class ProductEndToEndTest {
     );
 
     webTestClient.post()
-        .uri("/products/create")
+        .uri("/general_market/api/v1/products/create")
         .contentType(MediaType.APPLICATION_JSON)
         .bodyValue(productDto)
         .exchange()

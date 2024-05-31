@@ -37,7 +37,7 @@ class ProductRouterTest {
   @BeforeEach
   void setUp() {
     ProductRouter productRouter = new ProductRouter(productHandler);
-    webTestClient = WebTestClient.bindToRouterFunction(productRouter.productRoutes()).build();
+    webTestClient = WebTestClient.bindToRouterFunction(productRouter.routes()).build();
   }
 
   @Test
@@ -50,7 +50,7 @@ class ProductRouterTest {
     when(createProduct.execute(productDto)).thenReturn(Mono.just(productDto.toDomain()));
 
     webTestClient.post()
-        .uri("/products/create")
+        .uri("/general_market/api/v1/products/create")
         .bodyValue(productDto)
         .exchange()
         .expectStatus().isOk()
@@ -70,7 +70,7 @@ class ProductRouterTest {
     when(createProduct.execute(productDto)).then(invocation -> Mono.error(new IllegalArgumentException("Required parameters are missing.")));
 
     webTestClient.post()
-        .uri("/products/create")
+        .uri("/general_market/api/v1/products/create")
         .bodyValue(productDto)
         .exchange()
         .expectStatus().isBadRequest()
@@ -92,7 +92,7 @@ class ProductRouterTest {
     when(findPaginatedProducts.execute(pageable)).thenReturn(Mono.just(new ProductsResultDto(products, 5L)));
 
     webTestClient.get()
-        .uri("/products/all?page=0&size=5")
+        .uri("/general_market/api/v1/products/all?page=0&size=5")
         .exchange()
         .expectStatus().isOk()
         .expectBody()

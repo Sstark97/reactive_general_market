@@ -17,8 +17,14 @@ public class ProductRouter {
   }
 
   @Bean
-  public RouterFunction<ServerResponse> productRoutes() {
-    return RouterFunctions.route(RequestPredicates.POST("products/create"), productHandler::createProduct)
-        .andRoute(RequestPredicates.GET("products/all"), productHandler::findAllProductsPaginated);
+  public RouterFunction<ServerResponse> routes() {
+    return RouterFunctions
+        .nest(RequestPredicates.path("general_market/api/v1/products"), productRoutes());
+  }
+
+  private RouterFunction<ServerResponse> productRoutes() {
+    return RouterFunctions
+        .route(RequestPredicates.POST("create"), productHandler::createProduct)
+        .andRoute(RequestPredicates.GET("all"), productHandler::findAllProductsPaginated);
   }
 }

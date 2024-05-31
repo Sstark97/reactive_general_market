@@ -1,5 +1,5 @@
 ### GET request to example server
-GET http://localhost:8080/products/all?page=1&size=2
+GET http://localhost:8080/general_marketapi/v1/products/all?page=1&size=2
 Content-Type: application/json
 
 ###
