@@ -1,6 +1,12 @@
 package org.example.reactive_general_market.src.product.infrastructure.endpoint.router;
 
+import java.util.List;
+import java.util.UUID;
+
 import org.example.reactive_general_market.src.product.application.CreateProduct;
+import org.example.reactive_general_market.src.product.application.FindPaginatedProducts;
+import org.example.reactive_general_market.src.product.application.model.ProductsResultDto;
+import org.example.reactive_general_market.src.product.domain.model.Product;
 import org.example.reactive_general_market.src.product.infrastructure.dto.CreatedProductDto;
 import org.example.reactive_general_market.src.product.infrastructure.handler.ProductHandler;
 import org.junit.jupiter.api.BeforeEach;
@@ -9,6 +15,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.data.domain.Pageable;
 import org.springframework.test.web.reactive.server.WebTestClient;
 import reactor.core.publisher.Mono;
 
@@ -19,6 +26,8 @@ class ProductRouterTest {
 
   @Mock
   private CreateProduct createProduct;
+  @Mock
+  private FindPaginatedProducts findPaginatedProducts;
 
   @InjectMocks
   private ProductHandler productHandler;
@@ -67,5 +76,31 @@ class ProductRouterTest {
         .expectStatus().isBadRequest()
         .expectBody()
         .jsonPath("$.message").isEqualTo("Required parameters are missing.");
+  }
+
+  @Test
+  void find_all_products_paginated() {
+    final var products = List.of(
+        new Product(UUID.randomUUID(), "first product", "First Product" , 100.0),
+        new Product(UUID.randomUUID(), "second product", "Second Product",200.0),
+        new Product(UUID.randomUUID(), "third product", "Thirst Product",300.0),
+        new Product(UUID.randomUUID(), "fourth product", "Fourth Product",400.0),
+        new Product(UUID.randomUUID(), "fifth product", "Five Product",500.0)
+    );
+    final Pageable pageable = Pageable.ofSize(5).withPage(0);
+
+    when(findPaginatedProducts.execute(pageable)).thenReturn(Mono.just(new ProductsResultDto(products, 5L)));
+
+    webTestClient.get()
+        .uri("/products/all?page=0&size=5")
+        .exchange()
+        .expectStatus().isOk()
+        .expectBody()
+        .jsonPath("$.content").isArray()
+        .jsonPath("$.pageNumber").isEqualTo(0)
+        .jsonPath("$.pageElementsSize").isEqualTo(5)
+        .jsonPath("$.totalElements").isNumber()
+        .jsonPath("$.totalPages").isNumber()
+        .jsonPath("$.last").isBoolean();
   }
 }

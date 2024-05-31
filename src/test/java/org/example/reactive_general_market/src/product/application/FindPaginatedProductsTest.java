@@ -12,6 +12,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.data.domain.Pageable;
 import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 import reactor.test.StepVerifier;
 
 import static org.mockito.Mockito.when;
@@ -35,14 +36,19 @@ class FindPaginatedProductsTest {
     final Pageable pageable = Pageable.ofSize(5).withPage(0);
 
     when(productRepository.findAll(pageable)).thenReturn(Flux.fromIterable(products));
+    when(productRepository.count()).thenReturn(Mono.just(5L));
 
     findPaginatedProducts.execute(pageable)
         .as(StepVerifier::create)
-        .expectNext(products.get(0))
-        .expectNext(products.get(1))
-        .expectNext(products.get(2))
-        .expectNext(products.get(3))
-        .expectNext(products.get(4))
+        .expectNextMatches(productsResultDto -> {
+          final var productsResult = productsResultDto.products();
+          return productsResult.size() == 5 &&
+              productsResult.get(0).name().equals("first product") &&
+              productsResult.get(1).name().equals("second product") &&
+              productsResult.get(2).name().equals("third product") &&
+              productsResult.get(3).name().equals("fourth product") &&
+              productsResult.get(4).name().equals("fifth product");
+        })
         .verifyComplete();
   }
 }

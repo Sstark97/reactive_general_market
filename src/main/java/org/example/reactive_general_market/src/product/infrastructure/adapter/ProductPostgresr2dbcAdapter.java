@@ -25,4 +25,9 @@ public class ProductPostgresr2dbcAdapter implements ProductRepository {
   public Flux<Product> findAll(Pageable pageable) {
     return productR2dbcRepository.findAll(pageable.getOffset(), pageable.getPageSize());
   }
+
+  @Override
+  public Mono<Long> count() {
+    return productR2dbcRepository.count();
+  }
 }

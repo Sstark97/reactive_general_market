@@ -10,4 +10,6 @@ public interface ProductRepository {
   Mono<Product> save(Product product);
 
   Flux<Product> findAll(Pageable pageable);
+
+  Mono<Long> count();
 }
