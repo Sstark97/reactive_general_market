@@ -3,6 +3,7 @@ package org.example.reactive_general_market.src.product.infrastructure.handler;
 import java.util.UUID;
 
 import org.example.reactive_general_market.src.product.application.CreateProduct;
+import org.example.reactive_general_market.src.product.application.DeleteProduct;
 import org.example.reactive_general_market.src.product.application.FindPaginatedProducts;
 import org.example.reactive_general_market.src.product.application.UpdateProduct;
 import org.example.reactive_general_market.src.product.application.dto.ProductDto;
@@ -20,12 +21,14 @@ public class ProductHandler {
   private final CreateProduct createProduct;
   private final FindPaginatedProducts findPaginatedProducts;
   private final UpdateProduct updateProduct;
+  private final DeleteProduct deleteProduct;
 
   public ProductHandler(CreateProduct createProduct, FindPaginatedProducts findPaginatedProducts,
-      UpdateProduct updateProduct) {
+      UpdateProduct updateProduct, DeleteProduct deleteProduct) {
     this.createProduct = createProduct;
     this.findPaginatedProducts = findPaginatedProducts;
     this.updateProduct = updateProduct;
+    this.deleteProduct = deleteProduct;
   }
 
   public Mono<ServerResponse> createProduct(ServerRequest request) {
@@ -58,5 +61,14 @@ public class ProductHandler {
         .onErrorResume(error ->
             ServerResponse.status(HttpStatus.INTERNAL_SERVER_ERROR).bodyValue(new ErrorResponse(error.getMessage()))
         );
+  }
+
+  public Mono<ServerResponse> deleteProduct(ServerRequest request) {
+    final var productId = UUID.fromString(request.pathVariable("id"));
+
+    return deleteProduct.execute(productId)
+        .then(Mono.defer(() -> ServerResponse.ok().build()))
+        .onErrorResume(error ->
+            ServerResponse.status(HttpStatus.INTERNAL_SERVER_ERROR).bodyValue(new ErrorResponse(error.getMessage())));
   }
 }

@@ -19,4 +19,7 @@ public interface ProductR2dbcRepository extends ReactiveCrudRepository<Product, 
 
   @Query("UPDATE product SET name = :name, description = :description, price = :price WHERE id = :id")
   Mono<Void> update(UUID id, String name, String description, Double price);
+
+  @Query("DELETE FROM product WHERE id = :id")
+  Mono<Void> deleteById(UUID id);
 }

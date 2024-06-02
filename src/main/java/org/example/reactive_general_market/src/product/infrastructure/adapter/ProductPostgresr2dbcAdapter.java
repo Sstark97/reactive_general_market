@@ -1,6 +1,7 @@
 package org.example.reactive_general_market.src.product.infrastructure.adapter;
 
 import java.util.Optional;
+import java.util.UUID;
 
 import org.example.reactive_general_market.src.product.domain.ProductRepository;
 import org.example.reactive_general_market.src.product.domain.model.Product;
@@ -48,6 +49,11 @@ public class ProductPostgresr2dbcAdapter implements ProductRepository {
               productUpdated.price()
           ).then(Mono.just(productUpdated))
         );
+  }
+
+  @Override
+  public Mono<Void> deleteById(UUID productId) {
+    return productR2dbcRepository.deleteById(productId);
   }
 
   private Product getProductUpdated(Product product, Product existingProduct) {

@@ -26,6 +26,7 @@ public class ProductRouter {
     return RouterFunctions
         .route(RequestPredicates.POST("products"), productHandler::createProduct)
         .andRoute(RequestPredicates.GET("products/all"), productHandler::findAllProductsPaginated)
-        .andRoute(RequestPredicates.PUT("products/{id}"), productHandler::updateProduct);
+        .andRoute(RequestPredicates.PUT("products/{id}"), productHandler::updateProduct)
+        .andRoute(RequestPredicates.DELETE("products/{id}"), productHandler::deleteProduct);
   }
 }

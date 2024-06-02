@@ -83,6 +83,16 @@ class ProductEndToEndTest {
         .jsonPath("$.description").isEqualTo("Product Description")
         .jsonPath("$.price").isEqualTo(100.0);
   }
+  
+  @Test
+  void delete_a_product() {
+    final Product product = saveProduct();
+
+    webTestClient.delete()
+        .uri("/general_market/api/v1/products/{id}", product.id())
+        .exchange()
+        .expectStatus().isOk();
+  }
 
   private @NotNull Product saveProduct() {
     ProductDto productDto = new ProductDto(

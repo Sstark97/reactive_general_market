@@ -1,5 +1,7 @@
 package org.example.reactive_general_market.src.product.domain;
 
+import java.util.UUID;
+
 import org.example.reactive_general_market.src.product.domain.model.Product;
 import org.springframework.data.domain.Pageable;
 import reactor.core.publisher.Flux;
@@ -14,4 +16,6 @@ public interface ProductRepository {
   Mono<Long> count();
 
   Mono<Product> update(Product product);
+
+  Mono<Void> deleteById(UUID productId);
 }
