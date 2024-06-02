@@ -55,7 +55,7 @@ class ProductRouterTest {
     when(createProduct.execute(productDto)).thenReturn(Mono.just(productDto.toCreatedProduct()));
 
     webTestClient.post()
-        .uri("/general_market/api/v1/products/create")
+        .uri("/general_market/api/v1/products")
         .bodyValue(productDto)
         .exchange()
         .expectStatus().isOk()
@@ -75,7 +75,7 @@ class ProductRouterTest {
     when(createProduct.execute(productDto)).then(invocation -> Mono.error(new IllegalArgumentException("Required parameters are missing.")));
 
     webTestClient.post()
-        .uri("/general_market/api/v1/products/create")
+        .uri("/general_market/api/v1/products")
         .bodyValue(productDto)
         .exchange()
         .expectStatus().isBadRequest()
@@ -121,7 +121,7 @@ class ProductRouterTest {
     when(updateProduct.execute(updatedProductDto)).thenReturn(Mono.just(productDto.toCreatedProduct()));
 
     webTestClient.put()
-        .uri("/general_market/api/v1/products/update/{id}", productId)
+        .uri("/general_market/api/v1/products/{id}", productId)
         .bodyValue(productDto)
         .exchange()
         .expectStatus().isOk()
@@ -143,7 +143,7 @@ class ProductRouterTest {
     when(updateProduct.execute(updatedProductDto)).thenReturn(Mono.empty());
 
     webTestClient.put()
-        .uri("/general_market/api/v1/products/update/{id}", productId)
+        .uri("/general_market/api/v1/products/{id}", productId)
         .bodyValue(productDto)
         .exchange()
         .expectStatus().isNotFound();

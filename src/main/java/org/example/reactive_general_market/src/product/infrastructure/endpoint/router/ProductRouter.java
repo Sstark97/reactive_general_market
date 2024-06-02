@@ -19,13 +19,13 @@ public class ProductRouter {
   @Bean
   public RouterFunction<ServerResponse> routes() {
     return RouterFunctions
-        .nest(RequestPredicates.path("general_market/api/v1/products"), productRoutes());
+        .nest(RequestPredicates.path("general_market/api/v1"), productRoutes());
   }
 
   private RouterFunction<ServerResponse> productRoutes() {
     return RouterFunctions
-        .route(RequestPredicates.POST("create"), productHandler::createProduct)
-        .andRoute(RequestPredicates.GET("all"), productHandler::findAllProductsPaginated)
-        .andRoute(RequestPredicates.PUT("update/{id}"), productHandler::updateProduct);
+        .route(RequestPredicates.POST("products"), productHandler::createProduct)
+        .andRoute(RequestPredicates.GET("products/all"), productHandler::findAllProductsPaginated)
+        .andRoute(RequestPredicates.PUT("products/{id}"), productHandler::updateProduct);
   }
 }

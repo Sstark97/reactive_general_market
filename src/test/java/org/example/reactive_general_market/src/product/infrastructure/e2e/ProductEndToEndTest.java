@@ -33,7 +33,7 @@ class ProductEndToEndTest {
     );
 
     webTestClient.post()
-        .uri("/general_market/api/v1/products/create")
+        .uri("/general_market/api/v1/products")
         .contentType(MediaType.APPLICATION_JSON)
         .bodyValue(productDto)
         .exchange()
@@ -53,7 +53,7 @@ class ProductEndToEndTest {
     );
 
     webTestClient.post()
-        .uri("/general_market/api/v1/products/create")
+        .uri("/general_market/api/v1/products")
         .contentType(MediaType.APPLICATION_JSON)
         .bodyValue(productDto)
         .exchange()
@@ -73,7 +73,7 @@ class ProductEndToEndTest {
     final Product product = saveProduct();
 
     webTestClient.put()
-        .uri("/general_market/api/v1/products/update/{id}", product.id())
+        .uri("/general_market/api/v1/products/{id}", product.id())
         .contentType(MediaType.APPLICATION_JSON)
         .bodyValue(productToUpdateDto)
         .exchange()
