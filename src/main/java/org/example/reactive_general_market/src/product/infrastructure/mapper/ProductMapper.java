@@ -19,7 +19,7 @@ public class ProductMapper {
         productsResultDto.totalProducts());
     return new ProductPage(
         productsResultDto.products(),
-        productPageImpl.getNumberOfElements(),
+        productsResultDto.totalProducts().intValue(),
         productPageImpl.getTotalPages(),
         productPageImpl.getNumber(),
         productPageImpl.getSize(),

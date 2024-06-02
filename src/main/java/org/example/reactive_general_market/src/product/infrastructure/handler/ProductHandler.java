@@ -67,7 +67,7 @@ public class ProductHandler {
     final var productId = UUID.fromString(request.pathVariable("id"));
 
     return deleteProduct.execute(productId)
-        .then(Mono.defer(() -> ServerResponse.ok().build()))
+        .then(ServerResponse.ok().build())
         .onErrorResume(error ->
             ServerResponse.status(HttpStatus.INTERNAL_SERVER_ERROR).bodyValue(new ErrorResponse(error.getMessage())));
   }

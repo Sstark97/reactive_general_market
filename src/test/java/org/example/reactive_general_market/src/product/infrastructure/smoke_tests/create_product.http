@@ -3,7 +3,7 @@ POST http://localhost:8080/general_market/api/v1/products
 Content-Type: application/json
 
 {
-    "name": "Product 1",
+    "name": "Product 6",
     "description": "Product 1 description",
     "price": 100.00
 }
