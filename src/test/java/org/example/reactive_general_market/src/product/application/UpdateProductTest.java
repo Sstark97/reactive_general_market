@@ -37,7 +37,7 @@ class UpdateProductTest {
     updateProduct.execute(productDto)
         .as(StepVerifier::create)
         .assertNext(updatedProduct -> {
-          assertEquals(productDto.productId(), "ssss");
+          assertEquals(productDto.productId(), updatedProduct.id());
           assertEquals(productDto.updatedProductName(), updatedProduct.name());
           assertEquals(productDto.productDescription(), updatedProduct.description());
           assertEquals(productDto.price(), updatedProduct.price());
