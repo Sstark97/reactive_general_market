@@ -1,5 +1,5 @@
 ### GET request to example server
-POST http://localhost:8080/general_marketapi/v1/products/create
+POST http://localhost:8080/general_market/api/v1/products/create
 Content-Type: application/json
 
 {
@@ -7,5 +7,7 @@ Content-Type: application/json
     "description": "Product 1 description",
     "price": 100.00
 }
-
+> {%
+ client.global.set("product_id", response.body.id);
+ %}
 ###

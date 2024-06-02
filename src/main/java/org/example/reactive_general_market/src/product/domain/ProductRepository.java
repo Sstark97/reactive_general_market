@@ -12,4 +12,6 @@ public interface ProductRepository {
   Flux<Product> findAll(Pageable pageable);
 
   Mono<Long> count();
+
+  Mono<Product> update(Product product);
 }

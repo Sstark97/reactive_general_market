@@ -5,10 +5,13 @@ import java.util.UUID;
 
 import org.example.reactive_general_market.src.product.application.CreateProduct;
 import org.example.reactive_general_market.src.product.application.FindPaginatedProducts;
+import org.example.reactive_general_market.src.product.application.UpdateProduct;
 import org.example.reactive_general_market.src.product.application.dto.CreatedProductDto;
 import org.example.reactive_general_market.src.product.application.dto.ProductsResultDto;
+import org.example.reactive_general_market.src.product.application.dto.UpdatedProductDto;
 import org.example.reactive_general_market.src.product.domain.model.Product;
 import org.example.reactive_general_market.src.product.infrastructure.handler.ProductHandler;
+import org.example.reactive_general_market.src.product.infrastructure.mapper.ProductMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -28,6 +31,8 @@ class ProductRouterTest {
   private CreateProduct createProduct;
   @Mock
   private FindPaginatedProducts findPaginatedProducts;
+  @Mock
+  private UpdateProduct updateProduct;
 
   @InjectMocks
   private ProductHandler productHandler;
@@ -102,5 +107,45 @@ class ProductRouterTest {
         .jsonPath("$.totalElements").isNumber()
         .jsonPath("$.totalPages").isNumber()
         .jsonPath("$.last").isBoolean();
+  }
+
+  @Test
+  void update_product_fields() {
+    final UUID productId = UUID.randomUUID();
+    CreatedProductDto productDto = new CreatedProductDto(
+        "Updated Product Name",
+        "Product Description",
+        100.0
+    );
+    final UpdatedProductDto updatedProductDto = ProductMapper.toUpdatedProductDto(productDto, productId);
+    when(updateProduct.execute(updatedProductDto)).thenReturn(Mono.just(productDto.toDomain()));
+
+    webTestClient.put()
+        .uri("/general_market/api/v1/products/update/{id}", productId)
+        .bodyValue(productDto)
+        .exchange()
+        .expectStatus().isOk()
+        .expectBody()
+        .jsonPath("$.name").isEqualTo("Updated Product Name")
+        .jsonPath("$.description").isEqualTo("Product Description")
+        .jsonPath("$.price").isEqualTo(100.0);
+  }
+
+  @Test
+  void not_allow_to_update_a_product_if_not_exists() {
+    final UUID productId = UUID.randomUUID();
+    CreatedProductDto productDto = new CreatedProductDto(
+        "Updated Product Name",
+        "Product Description",
+        100.0
+    );
+    final UpdatedProductDto updatedProductDto = ProductMapper.toUpdatedProductDto(productDto, productId);
+    when(updateProduct.execute(updatedProductDto)).thenReturn(Mono.empty());
+
+    webTestClient.put()
+        .uri("/general_market/api/v1/products/update/{id}", productId)
+        .bodyValue(productDto)
+        .exchange()
+        .expectStatus().isNotFound();
   }
 }

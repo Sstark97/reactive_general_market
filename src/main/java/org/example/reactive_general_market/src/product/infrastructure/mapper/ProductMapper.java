@@ -1,7 +1,11 @@
 package org.example.reactive_general_market.src.product.infrastructure.mapper;
 
+import java.util.UUID;
+
+import org.example.reactive_general_market.src.product.application.dto.CreatedProductDto;
 import org.example.reactive_general_market.src.product.application.dto.ProductPage;
 import org.example.reactive_general_market.src.product.application.dto.ProductsResultDto;
+import org.example.reactive_general_market.src.product.application.dto.UpdatedProductDto;
 import org.example.reactive_general_market.src.product.domain.model.Product;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
@@ -22,6 +26,16 @@ public class ProductMapper {
         productPageImpl.isFirst(),
         productPageImpl.isLast(),
         productPageImpl.isEmpty()
+    );
+  }
+
+  public static UpdatedProductDto toUpdatedProductDto(CreatedProductDto createdProductDto,
+      UUID productId) {
+    return new UpdatedProductDto(
+        productId,
+        createdProductDto.name(),
+        createdProductDto.description(),
+        createdProductDto.price()
     );
   }
 }

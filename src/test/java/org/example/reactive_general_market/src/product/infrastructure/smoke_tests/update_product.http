@@ -1,0 +1,10 @@
+### GET request to example server
+PUT http://localhost:8080/general_market/api/v1/products/update/{{product_id}}
+Content-Type: application/json
+
+{
+    "name": "Product 1 Updated",
+    "description": "Product 1 Description Updated",
+    "price": 2000
+}
+###

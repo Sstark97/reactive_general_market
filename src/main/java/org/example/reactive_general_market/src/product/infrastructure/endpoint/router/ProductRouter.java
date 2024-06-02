@@ -25,6 +25,7 @@ public class ProductRouter {
   private RouterFunction<ServerResponse> productRoutes() {
     return RouterFunctions
         .route(RequestPredicates.POST("create"), productHandler::createProduct)
-        .andRoute(RequestPredicates.GET("all"), productHandler::findAllProductsPaginated);
+        .andRoute(RequestPredicates.GET("all"), productHandler::findAllProductsPaginated)
+        .andRoute(RequestPredicates.PUT("update/{id}"), productHandler::updateProduct);
   }
 }
