@@ -1,4 +1,4 @@
-package org.example.reactive_general_market.infrastructure.containers;
+package org.example.reactive_general_market.src.product.infrastructure.containers;
 
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.boot.testcontainers.service.connection.ServiceConnection;
@@ -9,9 +9,12 @@ import org.testcontainers.containers.PostgreSQLContainer;
 public class ReactivePostgresContainer {
   @Bean
   @ServiceConnection
-  public PostgreSQLContainer postgreSQLContainer() {
+  @SuppressWarnings("resource")
+  public PostgreSQLContainer<?> postgreSQLContainer() {
     return new PostgreSQLContainer<>("postgres:13.2")
         .withDatabaseName("reactive_general_market")
+        .withUsername("user")
+        .withPassword("password")
         .withInitScript("init.sql");
   }
 }
