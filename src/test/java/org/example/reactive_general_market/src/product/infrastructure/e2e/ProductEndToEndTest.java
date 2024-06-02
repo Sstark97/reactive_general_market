@@ -8,6 +8,7 @@ import org.example.reactive_general_market.src.product.domain.model.Product;
 import org.example.reactive_general_market.src.product.infrastructure.containers.ReactivePostgresContainer;
 import org.example.reactive_general_market.src.product.infrastructure.repository.ProductR2dbcRepository;
 import org.jetbrains.annotations.NotNull;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.reactive.AutoConfigureWebTestClient;
@@ -24,6 +25,11 @@ class ProductEndToEndTest {
   private WebTestClient webTestClient;
   @Autowired
   private ProductR2dbcRepository productR2dbcRepository;
+
+  @BeforeEach
+  void setUp() {
+    productR2dbcRepository.deleteAll().block();
+  }
 
   @Test
   void create_a_product_with_a_valid_request() {
