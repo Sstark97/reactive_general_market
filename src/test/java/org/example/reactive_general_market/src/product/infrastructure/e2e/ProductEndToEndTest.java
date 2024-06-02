@@ -1,5 +1,6 @@
 package org.example.reactive_general_market.src.product.infrastructure.e2e;
 
+import java.util.List;
 import java.util.Objects;
 
 import org.example.reactive_general_market.src.product.application.dto.ProductDto;
@@ -63,6 +64,20 @@ class ProductEndToEndTest {
   }
 
   @Test
+  void retrieve_all_products() {
+    List<String> products = List.of("Product 1", "Product 2", "Product 3", "Product 4", "Product 5");
+    products.forEach(this::saveProduct);
+
+    webTestClient.get()
+        .uri("/general_market/api/v1/products/all?page=1&size=2")
+        .exchange()
+        .expectStatus().isOk()
+        .expectBody()
+        .jsonPath("$.content.length()").isEqualTo(2)
+        .jsonPath("$.totalElements").isEqualTo(5);
+  }
+
+  @Test
   void update_a_product_with_a_valid_request() {
     ProductDto productToUpdateDto = new ProductDto(
         "Product Updated Name",
@@ -70,7 +85,7 @@ class ProductEndToEndTest {
         null
     );
 
-    final Product product = saveProduct();
+    final Product product = saveProduct("Product Name");
 
     webTestClient.put()
         .uri("/general_market/api/v1/products/{id}", product.id())
@@ -83,10 +98,10 @@ class ProductEndToEndTest {
         .jsonPath("$.description").isEqualTo("Product Description")
         .jsonPath("$.price").isEqualTo(100.0);
   }
-  
+
   @Test
   void delete_a_product() {
-    final Product product = saveProduct();
+    final Product product = saveProduct("Product Name");
 
     webTestClient.delete()
         .uri("/general_market/api/v1/products/{id}", product.id())
@@ -94,9 +109,9 @@ class ProductEndToEndTest {
         .expectStatus().isOk();
   }
 
-  private @NotNull Product saveProduct() {
+  private @NotNull Product saveProduct(final String productName) {
     ProductDto productDto = new ProductDto(
-        "Product Name",
+        productName,
         "Product Description",
         100.0
     );
