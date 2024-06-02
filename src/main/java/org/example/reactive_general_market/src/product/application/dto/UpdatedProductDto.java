@@ -8,7 +8,7 @@ public record UpdatedProductDto(
     UUID productId,
     String updatedProductName,
     String productDescription,
-    double price
+    Double price
 ) {
 
   public Product toDomain() {

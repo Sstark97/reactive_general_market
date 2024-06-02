@@ -6,7 +6,7 @@ import java.util.UUID;
 import org.example.reactive_general_market.src.product.application.CreateProduct;
 import org.example.reactive_general_market.src.product.application.FindPaginatedProducts;
 import org.example.reactive_general_market.src.product.application.UpdateProduct;
-import org.example.reactive_general_market.src.product.application.dto.CreatedProductDto;
+import org.example.reactive_general_market.src.product.application.dto.ProductDto;
 import org.example.reactive_general_market.src.product.application.dto.ProductsResultDto;
 import org.example.reactive_general_market.src.product.application.dto.UpdatedProductDto;
 import org.example.reactive_general_market.src.product.domain.model.Product;
@@ -47,12 +47,12 @@ class ProductRouterTest {
 
   @Test
   void create_a_product_with_a_valid_fields() {
-    CreatedProductDto productDto = new CreatedProductDto(
+    ProductDto productDto = new ProductDto(
         "Product Name",
         "Product Description",
         100.0
     );
-    when(createProduct.execute(productDto)).thenReturn(Mono.just(productDto.toDomain()));
+    when(createProduct.execute(productDto)).thenReturn(Mono.just(productDto.toCreatedProduct()));
 
     webTestClient.post()
         .uri("/general_market/api/v1/products/create")
@@ -67,7 +67,7 @@ class ProductRouterTest {
 
   @Test
   void create_a_product_fail_when_not_provide_all_fields() {
-    CreatedProductDto productDto = new CreatedProductDto(
+    ProductDto productDto = new ProductDto(
         null,
         "Product Description",
         100.0
@@ -112,13 +112,13 @@ class ProductRouterTest {
   @Test
   void update_product_fields() {
     final UUID productId = UUID.randomUUID();
-    CreatedProductDto productDto = new CreatedProductDto(
+    ProductDto productDto = new ProductDto(
         "Updated Product Name",
         "Product Description",
         100.0
     );
     final UpdatedProductDto updatedProductDto = ProductMapper.toUpdatedProductDto(productDto, productId);
-    when(updateProduct.execute(updatedProductDto)).thenReturn(Mono.just(productDto.toDomain()));
+    when(updateProduct.execute(updatedProductDto)).thenReturn(Mono.just(productDto.toCreatedProduct()));
 
     webTestClient.put()
         .uri("/general_market/api/v1/products/update/{id}", productId)
@@ -134,7 +134,7 @@ class ProductRouterTest {
   @Test
   void not_allow_to_update_a_product_if_not_exists() {
     final UUID productId = UUID.randomUUID();
-    CreatedProductDto productDto = new CreatedProductDto(
+    ProductDto productDto = new ProductDto(
         "Updated Product Name",
         "Product Description",
         100.0

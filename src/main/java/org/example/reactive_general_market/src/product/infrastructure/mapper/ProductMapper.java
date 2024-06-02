@@ -2,7 +2,7 @@ package org.example.reactive_general_market.src.product.infrastructure.mapper;
 
 import java.util.UUID;
 
-import org.example.reactive_general_market.src.product.application.dto.CreatedProductDto;
+import org.example.reactive_general_market.src.product.application.dto.ProductDto;
 import org.example.reactive_general_market.src.product.application.dto.ProductPage;
 import org.example.reactive_general_market.src.product.application.dto.ProductsResultDto;
 import org.example.reactive_general_market.src.product.application.dto.UpdatedProductDto;
@@ -29,7 +29,7 @@ public class ProductMapper {
     );
   }
 
-  public static UpdatedProductDto toUpdatedProductDto(CreatedProductDto createdProductDto,
+  public static UpdatedProductDto toUpdatedProductDto(ProductDto createdProductDto,
       UUID productId) {
     return new UpdatedProductDto(
         productId,

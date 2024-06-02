@@ -47,8 +47,7 @@ public class ProductPostgresr2dbcAdapter implements ProductRepository {
               productUpdated.description(),
               productUpdated.price()
           ).then(Mono.just(productUpdated))
-        )
-        .switchIfEmpty(Mono.error(new RuntimeException("Product not found")));
+        );
   }
 
   private Product getProductUpdated(Product product, Product existingProduct) {

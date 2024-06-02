@@ -1,6 +1,6 @@
 package org.example.reactive_general_market.src.product.application;
 
-import org.example.reactive_general_market.src.product.application.dto.CreatedProductDto;
+import org.example.reactive_general_market.src.product.application.dto.ProductDto;
 import org.example.reactive_general_market.src.product.domain.ProductRepository;
 import org.example.reactive_general_market.src.product.domain.model.Product;
 import org.junit.jupiter.api.Test;
@@ -24,8 +24,8 @@ class CreateProductTest {
 
   @Test
   void create_new_product() {
-    CreatedProductDto productDto = new CreatedProductDto("Product 1","first product", 100.0);
-    Product product = productDto.toDomain();
+    ProductDto productDto = new ProductDto("Product 1","first product", 100.0);
+    Product product = productDto.toCreatedProduct();
 
     when(productRepository.save(any(Product.class))).thenReturn(Mono.just(product));
 
@@ -41,7 +41,7 @@ class CreateProductTest {
 
   @Test
   void should_given_an_error_when_a_field_is_not_present() {
-    CreatedProductDto productDto = new CreatedProductDto(null, null, 100.0);
+    ProductDto productDto = new ProductDto(null, null, 100.0);
 
     createProduct.execute(productDto)
         .as(StepVerifier::create)
