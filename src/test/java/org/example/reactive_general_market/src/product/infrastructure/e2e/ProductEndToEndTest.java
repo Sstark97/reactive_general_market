@@ -5,7 +5,7 @@ import java.util.Objects;
 
 import org.example.reactive_general_market.src.product.application.dto.ProductDto;
 import org.example.reactive_general_market.src.product.domain.model.Product;
-import org.example.reactive_general_market.src.product.infrastructure.containers.ReactivePostgresContainer;
+import org.example.reactive_general_market.src.shared.containers.ReactivePostgresContainer;
 import org.example.reactive_general_market.src.product.infrastructure.repository.ProductR2dbcRepository;
 import org.jetbrains.annotations.NotNull;
 import org.junit.jupiter.api.BeforeEach;

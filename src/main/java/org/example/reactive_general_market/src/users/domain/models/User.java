@@ -1,4 +1,4 @@
-package org.example.reactive_general_market.src.users.domain;
+package org.example.reactive_general_market.src.users.domain.models;
 
 public record User(
     String id,

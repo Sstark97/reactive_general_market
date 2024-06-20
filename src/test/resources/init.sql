@@ -4,3 +4,10 @@ CREATE TABLE Product(
     description VARCHAR(250) NOT NULL,
     price DECIMAL NOT NULL
 );
+
+CREATE TABLE USERS(
+    id UUID PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    password VARCHAR(50) NOT NULL,
+    email VARCHAR(100) NOT NULL
+);
